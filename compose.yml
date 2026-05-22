@@ -1,0 +1,29 @@
+services:
+
+  movie:
+    image: sreenadh45/moviev1
+    ports:
+      - "1111:80"
+    deploy:
+      restart_policy:
+        condition: any
+      replicas: 3
+      resources:
+        reservations:
+          cpus: "1"
+          memory: 200M
+        limits:
+          cpus: "1.5"
+          memory: 300M
+    networks:
+      - movie_network
+    volumes:
+      - movie:/usr/share/nginx/html
+
+networks:
+  movie_network:
+    driver: overlay
+    attachable: true
+
+volumes:
+  movie:
